@@ -4,7 +4,7 @@
 **Status:** Ongoing  
 
 ## Project Overview
-This project is a **Finance Tracker** application developed as part of a Project Based Learning (PBL) initiative. It automates the process of analyzing personal finance data by processing CSV transaction logs and generating comprehensive Excel reports.
+This project is a **Finance Tracker** application developed as part of a Project Based Learning (PBL). It automates the process of analyzing personal finance data by processing CSV transaction logs and generating comprehensive Excel reports.
 
 ## Features
 - **Automated Categorization**: Automatically categorizes transactions into groups like *Food, Travel, Shopping, Bills, Subscriptions,* and *Groceries* based on keyword matching.
