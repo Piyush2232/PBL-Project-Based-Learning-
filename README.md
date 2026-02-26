@@ -1,55 +1,50 @@
-# PBL (Project Based Learning) - Finance Tracker
+# Finance Tracker (PBL Project)
 
 **Author:** Piyush Prakash Sharma  
 **Status:** Ongoing  
 
-## Project Overview
-This project is an automated **Finance Tracker** application. It processes CSV transaction logs and generates comprehensive, styled Excel reports. The project has recently been refactored to use an Object-Oriented design and now incorporates **Machine Learning (Naive Bayes classifier)** for smart transaction categorization.
+## Project Goal
+The main goal of this project is to build a smart, automated tool that takes messy bank transaction data (like a raw CSV export) and turns it into a clear, visual financial report. Instead of manually grouping every single coffee shop run or taxi ride into a spreadsheet to see where my money goes, I wanted to write a Python script that figures it out for me and builds a clean Excel dashboard automatically.
 
-## Features
-- **AI-Powered Categorization**: Uses an NLP Machine Learning model (`scikit-learn`) to intelligently categorize transactions based on description.
-- **Robust Fallback Logic**: Automatically falls back to keyword-matching if the ML model is not available.
-- **Data Generation**: Includes a script (`generate_large_csv.py`) that uses `Faker` to generate synthetic transaction data for testing.
-- **Smart Data Cleaning**: Handles various currency formats, extracts negative/positive balances correctly, and tracks Income vs. Expenses.
-- **Visual Excel Reporting**: Generates a beautiful Excel workbook using `openpyxl` with:
-    - **Transactions Sheet**: Cleaned raw data, color-coded for income (green) and expenses (red).
-    - **Summary Sheet**: Financial overview and aggregated spending.
-    - **Visualization**: A built-in Pie Chart showing spending distribution based on categories.
+## How it Works
+1. **Data Cleaning:** The script first ingests a raw CSV. It cleans up the messy formatting (stripping out currency symbols, handling parentheses for negative balances, and turning everything into usable numbers).
+2. **Smart Categorization (AI!):** Instead of just checking if a description contains the word "Uber", it uses a simple Machine Learning model (Naive Bayes) to read the transaction text and predict what bucket it belongs in (Food, Travel, Subscriptions, Bills, Groceries, Shopping, etc.).
+3. **Excel Generation:** Finally, it uses `openpyxl` to build a beautifully formatted `.xlsx` file from scratch. It creates a bolded, color-coded list of transactions (green for income, red for expenses), builds a summary table of net balances, and drops in a pie chart so you can instantly see where your most expensive habits are.
 
-## Project Structure
-- `finance_tracker.py`: The main Object-Oriented Python script.
-- `train_model.py`: Script to train the Machine Learning categorization model.
-- `generate_large_csv.py`: Generates fake test transaction datasets.
-- `PBL_Report.docx` / `PBL.pptx`: Documentation and presentation materials.
+## What's included in the Repo
+- `finance_tracker.py`: The main script that does all the heavy lifting and building the Excel sheet.
+- `train_model.py`: A script to train the AI model on historical expense data.
+- `generate_large_csv.py`: I use this to quickly generate fake, randomized transaction data for testing (using the `Faker` library).
+- `PBL_Report.docx` & `PBL.pptx`: The actual write-up and slides for my project submission.
 
-## Requirements
+## Setup
+You'll need a few packages to run everything. Just install them via pip:
 ```sh
 pip install pandas openpyxl scikit-learn joblib faker
 ```
 
-## Setup & Usage
+## How to run it
 
-### 1. Generate Test Data (Optional)
-If you don't have your own CSV dataset, generate one:
-```sh
-python generate_large_csv.py
-```
-This creates a `large_transactions.csv` file with 500 unique synthetic transactions.
-
-### 2. Train the AI Model
-Train the text-classification model so the finance tracker can smartly categorize expenses:
+### 1. Training the model (Optional but recommended)
+Before running the main tracker, you should probably train the classification model so it knows how to categorize things. Just run:
 ```sh
 python train_model.py
 ```
-This generates `expense_model.pkl` and `expense_vectorizer.pkl`.
+*(This spits out `expense_model.pkl` and `expense_vectorizer.pkl` which the main script will look for).*
 
-### 3. Run the Finance Tracker
-Process your CSV file and generate the styled Excel report:
+### 2. Testing with fake data (Optional)
+If you just want to see how the script works but don't want to use your real bank statements, you can generate 500 fake records:
 ```sh
-python finance_tracker.py <path_to_csv>
+python generate_large_csv.py
 ```
-*Example:* `python finance_tracker.py large_transactions.csv`
 
-**Optional Flags:**
-- `-o` or `--output`: Specify a custom prefix for the generated Excel file.
-- `--no-ml`: Force disable the Machine Learning categorizer and use the hardcoded keyword fallback method.
+### 3. Running the tracker
+To actually parse a CSV and get your styled Excel report, just pass your CSV file to the main script:
+```sh
+python finance_tracker.py your_csv_file.csv
+```
+*(For example: `python finance_tracker.py large_transactions.csv`)*
+
+**Extra command-line tricks:**
+- Want to name the output file something specific? Use `-o file_name`.
+- Break the ML model? Use `--no-ml` to force the script to fall back to the basic keyword-matching method.
