@@ -28,7 +28,7 @@ def train_and_save_model():
     joblib.dump(model, 'expense_model.pkl')
     joblib.dump(vectorizer, 'expense_vectorizer.pkl')
 
-    print("Success! The AI brain has been trained and saved.")
+    print("Success! The Model has been trained and saved.")
 
 if __name__ == "__main__":
     train_and_save_model()
