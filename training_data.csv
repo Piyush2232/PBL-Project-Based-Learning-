@@ -1,0 +1,61 @@
+Description,Category
+UPI/Swiggy/Food Delivery,Food
+UPI/Zomato/Restaurant,Food
+POS/McDonalds/Outlet,Food
+UPI/Momo Stall/Street,Food
+College Canteen/Lunch,Food
+UPI/Tapri/Chai,Food
+Burger King/Dine-in,Food
+Dominos/Online Order,Food
+UPI/Local Cafe/Snacks,Food
+KFC/Outlet,Food
+Uber/Ride/City,Travel
+Ola/Cab/Transport,Travel
+IRCTC/Train Ticket,Travel
+Metro Card Recharge,Travel
+Petrol Pump/HP/Fuel,Travel
+UPI/Auto Fare/Commute,Travel
+Rapido/Bike Taxi,Travel
+RedBus/Ticket,Travel
+MakeMyTrip/Booking,Travel
+Amazon/Online Shopping,Shopping
+Flipkart/E-commerce,Shopping
+Myntra/Clothing,Shopping
+Ajio/Apparel,Shopping
+Decathlon/Sports,Shopping
+Stationery Shop/Notebooks,Shopping
+Reliance Digital/Electronics,Shopping
+Croma/Gadgets,Shopping
+Jio/Prepaid Recharge,Bills
+Airtel/Broadband Bill,Bills
+Electricity Bill/State Board,Bills
+Hostel Mess Fee/Monthly,Bills
+Exam Fee/CSE2102,Bills
+Water Bill/Municipal,Bills
+Mobile Postpaid/Vi,Bills
+Netflix/Monthly,Subscriptions
+Spotify Premium/Music,Subscriptions
+Amazon Prime/Yearly,Subscriptions
+Adobe Creative Cloud/Software,Subscriptions
+GitHub Copilot/Dev,Subscriptions
+LeetCode Premium/Subscription,Subscriptions
+Udemy/Relational Database Management Systems Course,Subscriptions
+Zepto/Groceries/Quick,Groceries
+Blinkit/Daily Needs,Groceries
+Swiggy Instamart/Groceries,Groceries
+Dmart/Supermarket,Groceries
+Reliance Smart/Provisions,Groceries
+BigBasket/Online Grocery,Groceries
+UPI/Local Kirana/Store,Groceries
+Mother Dairy/Milk,Groceries
+Pharmacy/Medicines,Others
+Apollo/Doctor Consultation,Others
+BookMyShow/Movie Ticket,Others
+PVR Cinemas/Entertainment,Others
+UPI/Haircut/Salon,Others
+Gift Shop/Present,Others
+UPI/Printout/Xerox,Others
+Zerodha/Fund Transfer,Others
+Camera Lens Rental/Store,Others
+Coursera/Certificate,Others
+UPI/Vending Machine,Others
