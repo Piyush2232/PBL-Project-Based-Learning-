@@ -11,7 +11,7 @@ def train_and_save_model():
     
     all_data = []
     
-    # Find all CSV files that start with 'training_data'
+    # Find active training data CSV files
     csv_files = glob.glob("training_data*.csv")
     
     if not csv_files:
@@ -20,9 +20,9 @@ def train_and_save_model():
         
     for file in csv_files:
         try:
-            # Skip malformed lines instead of crashing the entire file read
+            # Load CSV, skipping malformed lines
             temp_df = pd.read_csv(file, on_bad_lines='skip')
-            # Normalize column names to 'Description' and 'Category'
+            # Normalize column names
             if 'Transaction_Text' in temp_df.columns and 'Label' in temp_df.columns:
                 temp_df.rename(columns={'Transaction_Text': 'Description', 'Label': 'Category'}, inplace=True)
                 
@@ -44,19 +44,19 @@ def train_and_save_model():
 
     print("Evaluating the classification model...")
 
-    # 2. Split into testing and training sets (80% train, 20% test)
+    # Split dataset into training (80%) and testing (20%) sets
     X_train, X_test, y_train, y_test = train_test_split(df['Description'], df['Category'], test_size=0.2, random_state=42)
 
-    # 3. Convert text descriptions into numerical vectors
+    # Vectorize text descriptions
     vectorizer = TfidfVectorizer(stop_words='english')
     X_train_vec = vectorizer.fit_transform(X_train)
     X_test_vec = vectorizer.transform(X_test)
 
-    # 4. Train the Naive Bayes Classifier on the Train Set
+    # Train Naive Bayes model on training subset
     test_model = MultinomialNB()
     test_model.fit(X_train_vec, y_train)
     
-    # 5. Predict and Measure Accuracy
+    # Evaluate model accuracy
     y_pred = test_model.predict(X_test_vec)
     acc = accuracy_score(y_test, y_pred)
     print(f"\n====================================")
@@ -72,7 +72,7 @@ def train_and_save_model():
     final_model = MultinomialNB()
     final_model.fit(X_full, y_full)
 
-    # 6. Save the trained model and vectorizer to disk
+    # Persist the final model and vectorizer
     joblib.dump(final_model, 'expense_model.pkl')
     joblib.dump(vectorizer, 'expense_vectorizer.pkl')
 
