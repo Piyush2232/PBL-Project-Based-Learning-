@@ -116,11 +116,11 @@ class FinanceReportGenerator:
         self.df["Description"] = self.df["Description"].astype(str)
         self.df["Category"] = self.df["Description"].apply(self.categorizer.categorize)
 
-    def export_excel(self, output_prefix: str = "finance_report") -> None:
+    def export_excel(self, output_prefix: str = "finance_report", budget_limit: float = None, auto_open: bool = True) -> str:
         """Generates the styled Excel workbook."""
         if self.df.empty:
             logger.error("No data to export.")
-            return
+            return None
 
         logger.info("Generating Excel Report...")
         
@@ -135,7 +135,7 @@ class FinanceReportGenerator:
 
         wb = Workbook()
         self._build_transactions_sheet(wb.active, self.df)
-        self._build_summary_sheet(wb.create_sheet("Summary"), summary, total_income, total_expense)
+        self._build_summary_sheet(wb.create_sheet("Summary"), summary, total_income, total_expense, budget_limit)
 
         # File Naming
         counter = 1
@@ -147,10 +147,13 @@ class FinanceReportGenerator:
         wb.save(final_name)
         logger.info(f"Excel file created successfully: {final_name}")
 
-        try:
-            os.startfile(final_name)
-        except Exception:
-            pass
+        if auto_open:
+            try:
+                os.startfile(final_name)
+            except Exception:
+                pass
+                
+        return final_name
 
     def _build_transactions_sheet(self, ws, df):
         """Builds and styles the Raw Transactions sheet."""
@@ -188,7 +191,7 @@ class FinanceReportGenerator:
                     
         self._auto_adjust_columns(ws)
 
-    def _build_summary_sheet(self, ws, summary, total_inc, total_exp):
+    def _build_summary_sheet(self, ws, summary, total_inc, total_exp, budget_limit=None):
         """Builds the Summary Data, Overviews, and Pie Chart."""
         ws.title = "Summary"
         
@@ -203,6 +206,19 @@ class FinanceReportGenerator:
         ws.append(["Total Expenses", total_exp])
         ws.append(["Net Balance", total_inc - total_exp])
         
+        if budget_limit is not None:
+            ws.append(["Budget Limit", budget_limit])
+            ws.cell(row=ws.max_row, column=1).font = Font(bold=True)
+            
+            if total_exp > budget_limit:
+                status_msg = f"Warning: You exceeded your budget by {total_exp - budget_limit}! 😓"
+                ws.append(["Status", status_msg])
+                ws.cell(row=ws.max_row, column=2).font = Font(color="FF0000", bold=True)
+            else:
+                status_msg = f"Great job! You stayed under your budget by {budget_limit - total_exp}! 🎉"
+                ws.append(["Status", status_msg])
+                ws.cell(row=ws.max_row, column=2).font = Font(color="00B050", bold=True)
+                
         # Color coding overview
         ws["B2"].fill = PatternFill("solid", fgColor="C6EFCE") # Green Income
         ws["B3"].fill = PatternFill("solid", fgColor="FFC7CE") # Red Expense
@@ -211,7 +227,7 @@ class FinanceReportGenerator:
         ws.append([]) # Empty Row
         
         # Category Breakdown
-        start_row = 6
+        start_row = ws.max_row + 1
         ws.append(["Category", "Total Spent"])
         ws.cell(row=start_row, column=1).font = header_font
         ws.cell(row=start_row, column=2).font = header_font
@@ -248,7 +264,7 @@ class FinanceReportGenerator:
 
 def main():
     parser = argparse.ArgumentParser(description="Automate Personal Finance tracking and Excel Generation.")
-    parser.add_argument("input", help="Path to the input CSV file containing 'Description' and 'Amount' columns.")
+    parser.add_argument("input", nargs="?", default="test_transactions.csv", help="Path to the input CSV file containing 'Description' and 'Amount' columns.")
     parser.add_argument("--output", "-o", default="finance_report", help="Prefix for the generated Excel file.")
     parser.add_argument("--no-ml", action="store_true", help="Force disable machine learning and run strictly on keyword fallback rules.")
     

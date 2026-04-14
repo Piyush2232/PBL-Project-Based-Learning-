@@ -18,7 +18,7 @@ financial_categories = {
 
 start_date = datetime(2025, 1, 1)
 
-with open('large_transactions.csv', 'w', newline='', encoding='utf-8') as f:
+with open('test_transactions.csv', 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
     writer.writerow(['Date', 'Description', 'Amount'])
     
@@ -78,4 +78,4 @@ with open('large_transactions.csv', 'w', newline='', encoding='utf-8') as f:
             
         writer.writerow([current_date.strftime("%Y-%m-%d"), desc, round(amt, 2)])
 
-print("Successfully generated a completely unique 'large_transactions.csv' with 500 records using Faker!")
+print("Successfully generated a completely unique 'test_transactions.csv' with 500 records using Faker!")

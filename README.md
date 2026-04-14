@@ -34,7 +34,7 @@ If you don't have your own CSV dataset, generate one:
 ```sh
 python generate_large_csv.py
 ```
-This creates a `large_transactions.csv` file with 500 unique synthetic transactions.
+This creates a `test_transactions.csv` file with 500 unique synthetic transactions.
 
 ### 2. Train the AI Model
 Train the text-classification model so the finance tracker can smartly categorize expenses:
@@ -48,7 +48,7 @@ Process your CSV file and generate the styled Excel report:
 ```sh
 python finance_tracker.py <path_to_csv>
 ```
-*Example:* `python finance_tracker.py large_transactions.csv`
+*Example:* `python finance_tracker.py test_transactions.csv`
 
 **Optional Flags:**
 - `-o` or `--output`: Specify a custom prefix for the generated Excel file.
