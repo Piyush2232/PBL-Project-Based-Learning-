@@ -1,36 +1,38 @@
-# 🪶 FinTracker — AI-Powered Finance Dashboard
+# 🪶 FinTracker
 
 **Author:** Piyush Prakash Sharma  
-**Status:** Active Development  
-**Stack:** Python · Flask · React · scikit-learn
-
+**Status:** Active Development
 ---
 
 ## Overview
 
-FinTracker is a full-stack personal finance application that processes CSV transaction logs using **Machine Learning (Naive Bayes NLP classifier)** for smart expense categorization and renders a real-time **isometric dashboard** with emotional spending feedback. It also generates styled Excel reports with charts and budget analysis.
+FinTracker is a personal finance and budgeting application designed to actively disincentivize overspending .Unlike commercial products (Gpay ,PhonePe etc)that scrape data and use toxic positive reinforcement like cashbacks and cupons etc. to encourage spending, FinTracker focuses solely on helping you set goals and build financial responsibility. It is sort of a mix of a finance app and duolingo .The same way Duolingo doesn't reward you with money; it rewards you with psychological momentum (the Streak), and more importantly, it uses the fear of losing that momentum (passive-aggressive notifications) to force you to behave, it also relies on feedback loops and daily/monthly saving streaks to hold you accountable.
 
-The core idea: **make your spending habits feel visceral.** The app doesn't just show you numbers — it makes you *feel* overspending through red-pulsing borders, shaking alarm icons, and urgent messaging. Conversely, staying under budget rewards you with calming cyan glows and celebratory badges.
+This prototype version processes CSV transaction logs using **Machine Learning (Naive Bayes NLP classifier)** for **smart expense categorization** and renders a real-time **isometric dashboard**. It also generates Excel reports with charts and budget analysis.
+
+The core idea of the application is :
+- Whenever you spend your money through online methods the app reads your transaction through messages and then      notifies you how close you are to reaching your monthly/daily budget limit sort of like breaking the "Savings streak"
+- If by the end of the day you exceeded your daily budget limit then the app can reset your streak or give you an option to keep your streak by spending less the next day. 
+- It will also provide user with downloadable detailed reports of their transactions with charts and budget analysis
 
 ---
 
 ## ✨ Features
+
+### ML Engine (`finance_tracker.py` + `train_model.py`)
+- **Categorization using Naive Bayes Classifier** — TF-IDF vectorizer + Multinomial Naive Bayes classifier trained on labeled transaction data
+- **Fallback** — Keyword-matching engine activates automatically if ML model files are missing
+- **Data Cleaning** — Handles ₹ symbols, commas, parenthetical negatives, and mixed formats
+- **Excel Reports** — Color-coded transactions, summary sheets, and embedded pie charts via `openpyxl`
+
+### Data Generation (`generate_large_csv.py`)
+- **Synthetic Datasets** — Uses `Faker` to generate realistic test transaction CSVs with 500+ entries
 
 
 ### Backend (`app.py`)
 - **Flask API** — Serves the dashboard and handles CSV uploads via `/api/upload`
 - **Real-time Processing** — Uploads are categorized, analyzed, and returned as JSON in a single request
 - **Budget Analysis** — Compares spending against user-defined budget limits
-
-### ML Engine (`finance_tracker.py` + `train_model.py`)
-- **AI-Powered Categorization** — TF-IDF vectorizer + Multinomial Naive Bayes classifier trained on labeled transaction data
-- **Robust Fallback** — Keyword-matching engine activates automatically if ML model files are missing
-- **Smart Data Cleaning** — Handles ₹ symbols, commas, parenthetical negatives, and mixed formats
-- **Styled Excel Reports** — Color-coded transactions, summary sheets, and embedded pie charts via `openpyxl`
-
-### Data Generation (`generate_large_csv.py`)
-- **Synthetic Datasets** — Uses `Faker` to generate realistic test transaction CSVs with 500+ entries
-
 ---
 
 ## 📁 Project Structure
