@@ -16,18 +16,6 @@ The core idea: **make your spending habits feel visceral.** The app doesn't just
 
 ## ✨ Features
 
-### Dashboard (`site/`)
-- **Concentric Ring Visualization** — Interactive SVG rings that bloom on click, each ring representing a spending category with proportional fill
-- **Emotional Feedback System** — Full-screen animated border gradients that shift between:
-  - 🏆 **Cyan** (≤50% spent) — "Outstanding! Financial discipline on point."
-  - ✅ **Green** (50–80%) — "On track! Good balance."
-  - ⚠️ **Amber** (80–100%) — "Slow down. You're approaching your limit."
-  - 🚨 **Red** (>100%) — "Every additional rupee is money you don't have."
-- **Dynamic Status Banner** — Contextual top-of-page messages with emotional emojis and actionable sub-text
-- **Mood Badge** — Live status indicator (EXCELLENT / ON TRACK / CAUTION / OVER BUDGET)
-- **Budget Bar** — Color-shifting progress bar with glow effects
-- **Category Legend** — Interactive legend that filters transactions per-category
-- **Excel Export** — Download generated reports directly from the dashboard
 
 ### Backend (`app.py`)
 - **Flask API** — Serves the dashboard and handles CSV uploads via `/api/upload`
