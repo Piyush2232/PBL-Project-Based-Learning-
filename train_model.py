@@ -27,6 +27,8 @@ def train_and_save_model():
                 temp_df.rename(columns={'Transaction_Text': 'Description', 'Label': 'Category'}, inplace=True)
                 
             if 'Description' in temp_df.columns and 'Category' in temp_df.columns:
+                # Merge variations into standard categories
+                temp_df['Category'] = temp_df['Category'].replace({'Investments': 'Investment'})
                 all_data.append(temp_df[['Description', 'Category']])
                 print(f"Loaded {len(temp_df)} records from {file}")
             else:
@@ -64,7 +66,7 @@ def train_and_save_model():
     print(f"====================================\n")
     
     print("Detailed Classification Report (where the model struggles):")
-    print(classification_report(y_test, y_pred))
+    print(classification_report(y_test, y_pred, zero_division=0))
     
     print("\nRetraining model using 100% of the dataset for final deployment...")
     X_full = vectorizer.fit_transform(df['Description'])
